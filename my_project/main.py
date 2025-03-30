@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from database import models
+from database.models import article
 from database.database import engine
 from routers import articles, users
 
@@ -11,4 +11,4 @@ app.include_router(articles.router)
 def index():
     return {"message": f"Hello"}
 
-models.Base.metadata.create_all(engine)
+article.Base.metadata.create_all(engine)
