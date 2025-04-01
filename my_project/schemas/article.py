@@ -1,10 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class User(BaseModel):
     id: int
     username: str
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ArticleBase(BaseModel):
@@ -18,5 +17,4 @@ class ArticleResponse(BaseModel):
     content: str
     is_published: bool
     user: User
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

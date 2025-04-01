@@ -1,12 +1,11 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 
 class Article(BaseModel):
     title: str
     content: str
     is_published: bool
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserBase(BaseModel):
@@ -20,5 +19,4 @@ class UserResponse(BaseModel):
     email: str
     is_active: bool
     items: list[Article] = []
-    class Config():
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
