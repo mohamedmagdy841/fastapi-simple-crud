@@ -1,4 +1,4 @@
-fastapi
+fastapi[all]
 uvicorn
 sqlalchemy
 passlib
@@ -10,3 +10,5 @@ aiofiles
 requests
 pytest
 httpx
+jinja2
+websockets
