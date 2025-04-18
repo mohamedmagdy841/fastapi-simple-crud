@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from database.models import User
+from models import User
 from schemas import UserBase
 from sqlalchemy.orm.session import Session
 from utils.hash import Hash

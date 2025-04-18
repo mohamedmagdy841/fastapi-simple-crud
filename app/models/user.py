@@ -1,5 +1,5 @@
-from sqlalchemy.sql.sqltypes import Integer, String, Boolean
-from database.database import Base
+from sqlalchemy import Integer, String, Boolean, DateTime, func
+from db.database import Base
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
 
@@ -10,5 +10,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
 
     items = relationship("Article", back_populates='user')

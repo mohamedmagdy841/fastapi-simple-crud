@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from database.models import Article
+from models import Article
 from schemas import ArticleBase
 from sqlalchemy.orm.session import Session
 

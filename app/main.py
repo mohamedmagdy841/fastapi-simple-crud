@@ -1,7 +1,7 @@
 from pathlib import Path
 from fastapi import FastAPI
-from database.models import article
-from database.database import engine
+from models import article
+from db.database import engine
 from routers import articles, users, auth, file
 from fastapi.staticfiles import StaticFiles
 

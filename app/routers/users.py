@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 from crud import user
-from database.database import get_db
+from db.database import get_db
 from schemas import UserBase, UserResponse
+from utils.ApiResponse import ApiResponse
 
 router = APIRouter(prefix='/users', tags=['users'])
 
@@ -10,13 +11,13 @@ router = APIRouter(prefix='/users', tags=['users'])
 def create_user(request: UserBase, db: Session = Depends(get_db)):
     return user.create_user(db, request)
 
-@router.get('/', response_model=list[UserResponse])
+@router.get('/', response_model=ApiResponse[list[UserResponse]])
 def get_all_users(db: Session = Depends(get_db)):
-    return user.get_all_users(db)
+    return ApiResponse(data=user.get_all_users(db))
 
-@router.get('/{id}', response_model=UserResponse)
+@router.get('/{id}', response_model=ApiResponse[UserResponse])
 def get_user(id: int, db: Session = Depends(get_db)):
-    return user.get_user(db, id)
+    return ApiResponse(data=user.get_user(db, id))
 
 @router.put('/{id}/update')
 def update_user(id: int, request: UserBase, db: Session = Depends(get_db)):
