@@ -1,7 +1,7 @@
 from pathlib import Path
 from fastapi import FastAPI
-from models import article
-from db.database import engine
+from models import article, user
+from db.database import engine, Base
 from routers import articles, users, auth, file
 from fastapi.staticfiles import StaticFiles
 
@@ -15,7 +15,7 @@ app.include_router(articles.router)
 async def index():
     return {"message": "Welcome"}
 
-article.Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
 app.mount("/storage/uploads", StaticFiles(directory=str(Path("storage") / "uploads")), name="uploads")
 
