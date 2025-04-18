@@ -7,9 +7,6 @@ from utils.ApiResponse import ApiResponse
 
 router = APIRouter(prefix='/users', tags=['users'])
 
-@router.post('/', response_model=UserResponse)
-def create_user(request: UserBase, db: Session = Depends(get_db)):
-    return user.create_user(db, request)
 
 @router.get('/', response_model=ApiResponse[list[UserResponse]])
 def get_all_users(db: Session = Depends(get_db)):

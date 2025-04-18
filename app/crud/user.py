@@ -4,18 +4,6 @@ from schemas import UserBase
 from sqlalchemy.orm.session import Session
 from utils.hash import Hash
 
-# Create New User
-def create_user(db: Session, request: UserBase):
-    new_user = User(
-        username = request.username,
-        email = request.email,
-        password = Hash.bcrypt(request.password)
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user
-
 # Get All Users
 def get_all_users(db: Session):
   return db.query(User).all()
