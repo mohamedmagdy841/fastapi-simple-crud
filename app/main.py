@@ -11,10 +11,12 @@ app.include_router(file.router)
 app.include_router(users.router)
 app.include_router(articles.router)
 
-@app.get('/')
-def index():
-    return {"message": f"Hello"}
+@app.get("/")
+async def index():
+    return {"message": "Welcome"}
 
 article.Base.metadata.create_all(engine)
 
 app.mount("/storage/uploads", StaticFiles(directory=str(Path("storage") / "uploads")), name="uploads")
+
+
