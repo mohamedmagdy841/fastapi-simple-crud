@@ -1,20 +1,32 @@
+from typing import Optional
 from pydantic import BaseModel, ConfigDict
+from typing import Optional, TYPE_CHECKING
 
-class User(BaseModel):
-    id: int
-    username: str
+if TYPE_CHECKING:
+    from app.schemas.user import User
+
+
+class Article(BaseModel):
+    title: str
+    content: str
+    is_published: Optional[bool] = True
     model_config = ConfigDict(from_attributes=True)
-
 
 class ArticleBase(BaseModel):
     title: str
     content: str
     is_published: bool
-    user_id: int
 
-class ArticleResponse(BaseModel):
-    title: str
-    content: str
-    is_published: bool
-    user: User
+class ArticleCreate(ArticleBase):
+    pass
+
+class ArticleUpdate(ArticleBase):
+    pass
+
+class ArticleResponse(ArticleBase):
+    user: Optional["User"]
     model_config = ConfigDict(from_attributes=True)
+
+
+from app.schemas.user import User
+ArticleResponse.model_rebuild(_types_namespace={"User": User})

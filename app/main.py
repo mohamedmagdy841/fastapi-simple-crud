@@ -1,7 +1,6 @@
 from pathlib import Path
 from fastapi import FastAPI
-from db.database import engine, Base
-from routers import articles, users, auth, file
+from app.routers import articles, users, auth, file
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
@@ -10,7 +9,7 @@ app.include_router(file.router)
 app.include_router(users.router)
 app.include_router(articles.router)
 
-@app.get("/")
+@app.get("/", tags=["home"])
 async def index():
     return {"message": "Welcome"}
 

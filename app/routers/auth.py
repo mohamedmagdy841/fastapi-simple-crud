@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, BackgroundTasks
 from pydantic import EmailStr
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from db.database import get_db
-from crud import auth
-from schemas import UserBase, UserResponse
-from services.send_email import send_email
+from app.db.database import get_db
+from app.crud import auth
+from app.schemas.user import UserBase, UserResponse
+from app.services.send_email import send_email
 
 router = APIRouter(tags=["auth"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")

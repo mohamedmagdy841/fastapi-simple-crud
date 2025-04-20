@@ -1,12 +1,14 @@
 from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
+from typing import List, Optional, TYPE_CHECKING
 
-class Article(BaseModel):
-    title: str
-    content: str
-    is_published: Optional[bool] = True
+if TYPE_CHECKING:
+    from app.schemas.article import Article
+
+class User(BaseModel):
+    id: int
+    username: str
     model_config = ConfigDict(from_attributes=True)
-
 
 class UserBase(BaseModel):
     username: str
@@ -18,5 +20,8 @@ class UserResponse(BaseModel):
     username: str
     email: str
     is_active: Optional[bool] = True
-    items: list[Article] = []
+    articles: Optional[List["Article"]] = None
     model_config = ConfigDict(from_attributes=True)
+
+from app.schemas.article import Article
+UserResponse.model_rebuild(_types_namespace={"Article": Article})

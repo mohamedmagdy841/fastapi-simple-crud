@@ -1,14 +1,14 @@
 from datetime import timedelta
 import os
 from pydantic import EmailStr
-from schemas import UserBase
+from app.schemas.user import UserBase
 from sqlalchemy.orm.session import Session
-from utils.hash import Hash
-from models import User
+from app.utils.hash import Hash
+from app.models.user import User
 from fastapi.security import OAuth2PasswordRequestForm
-from utils.token import create_access_token, verify_token
+from app.utils.token import create_access_token, verify_token
 from fastapi import BackgroundTasks, HTTPException, status
-from services.send_email import send_email
+from app.services.send_email import send_email
 
 def register(db: Session, back_task: BackgroundTasks, request: UserBase):
     new_user = User(

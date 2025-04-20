@@ -7,7 +7,6 @@ from pathlib import Path
 
 router = APIRouter(prefix='/files', tags=["files"])
 
-# Define storage directory
 UPLOAD_DIR = Path("storage/uploads")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -15,7 +14,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 def generate_unique_image(filename: str) -> str:
     ext = filename.split(".")[-1]
     timestamp = str(int(time.time()))
-    hash_part = hashlib.sha256(filename.encode()).hexdigest()[:10]  # Short hash
+    hash_part = hashlib.sha256(filename.encode()).hexdigest()[:10]
     return f"{hash_part}_{timestamp}.{ext}"
 
 @router.post("/upload")
@@ -26,7 +25,7 @@ def upload_file(request: Request, file: UploadFile = File(...)):
     with open(path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    base_url = str(request.base_url)  # Example: "http://127.0.0.1:8000/"
+    base_url = str(request.base_url)
 
     return {"filename": new_filename, "url": f"{base_url}files/{new_filename}"}
 
