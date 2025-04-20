@@ -28,6 +28,12 @@ jobs:
         python -m pip install --upgrade pip
         python3.11 -m pip install flake8
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # If necessary, install pywin32 only on Windows
+        if [[ "$(uname)" == "Darwin" || "$(uname)" == "Linux" ]]; then
+          echo "Skipping pywin32 installation on Linux."
+        else
+          pip install pywin32
+        fi
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
